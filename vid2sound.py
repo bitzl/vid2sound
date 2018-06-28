@@ -65,3 +65,12 @@ def video2array_async(path, transform):
     for i, frame in enumerate(stream):
         result[i] = transform(frame)
     return result
+
+
+def normalize(ys):
+    return ys / max(abs(ys.min()), ys.max())
+
+
+def normalize_int32(ys):
+    factor = 2**32 / max(abs(ys.min()), ys.max())
+    return (ys * factor).astype(np.int32)
